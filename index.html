@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Актуальные Профессии ЕАО</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --dark: #14213d;
+            --light: #f8f9fa;
+            --gray: #adb5bd;
+            --success: #4cc9f0;
+            --warning: #f8961e;
+            --text: #212529;
+            --bg: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Manrope', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--bg);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 8rem 2rem 6rem;
+            position: relative;
+            overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,0 L100,0 L100,100 Q50,80 0,100"></path></svg>');
+            background-size: cover;
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.9;
+        }
+        
+        .scroll-down {
+            display: inline-block;
+            color: white;
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+            margin-top: 2rem;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-7px);}
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 5px;
+            background: var(--accent);
+            margin: 1rem auto 0;
+            border-radius: 3px;
+        }
+        
+        .profession {
+            display: flex;
+            align-items: center;
+            margin-bottom: 6rem;
+            position: relative;
+        }
+        
+        .profession:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .profession-image {
+            flex: 1;
+            min-height: 400px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: visible;
+            z-index: 1;
+            margin: 0 2rem;
+        }
+        
+        .profession-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
+        }
+        
+        .profession-number {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            background: var(--accent);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.8rem;
+            box-shadow: 0 10px 20px rgba(247,37,133,0.3);
+            z-index: 3;
+            border: 4px solid white;
+        }
+        
+        .profession-content {
+            flex: 1;
+            padding: 3rem;
+            position: relative;
+            margin: 0 2rem;
+        }
+        
+        .profession:nth-child(odd) .profession-content {
+            margin-left: -30px;
+        }
+        
+        .profession:nth-child(even) .profession-content {
+            margin-right: -30px;
+        }
+        
+        .profession h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .salary {
+            display: inline-block;
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .profession p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .education {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-top: 2rem;
+        }
+        
+        .education h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .education h3 i {
+            margin-right: 0.5rem;
+            color: var(--accent);
+        }
+        
+        .education ul {
+            list-style-type: none;
+        }
+        
+        .education li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.8rem;
+        }
+        
+        .education li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .demand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(248, 150, 30, 0.1);
+            color: var(--warning);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+        
+        .demand.high {
+            background: rgba(247, 37, 133, 0.1);
+            color: var(--accent);
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--dark), #000814);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        footer h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        footer p {
+            opacity: 0.7;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+        
+        .contacts {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .contact-link {
+            color: white;
+            background: rgba(255,255,255,0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-link:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            margin-top: 3rem;
+            opacity: 0.5;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 1024px) {
+            .profession, .profession:nth-child(even) {
+                flex-direction: column;
+            }
+            
+            .profession-image {
+                width: 100%;
+                margin: 0 0 2rem 0 !important;
+            }
+            
+            .profession-content {
+                width: 100%;
+                margin: 0 !important;
+                padding: 0 1rem;
+            }
+            
+            .profession-number {
+                top: -15px;
+                left: -15px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                border-width: 3px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .profession h2 {
+                font-size: 1.7rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 6rem 1rem 4rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 3rem 0;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 2rem;
+            }
+            
+            .profession-number {
+                top: -12px;
+                left: -12px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+                border-width: 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Востребованные профессии Еврейской автономной области</h1>
+            <p>Информация о самых востребованных специальностях и возможностях обучения в регионе</p>
+            <div class="scroll-down">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Топ-10 востребованных профессий</h2>
+            
+            <!-- Профессия 1 -->
+            <div class="profession">
+                <div class="profession-image" style="background-image: url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                    <div class="profession-number">1</div>
+                </div>
+                <div class="profession-content">
+                    <h2>Врач (терапевт, педиатр, хирург)</h2>
+                    <span class="salary">50 000 - 120 000 ₽</span>
+                    <p>Медицинские профессии остаются самыми востребованными в регионе. Врачи требуются как в Биробиджане, так и в районных центрах области. Особенно ценятся узкие специалисты с опытом работы.</p>
+                    <div class="education">
+                        <h3><i class="fas fa-graduation-cap"></i> Где получить образование:</h3>
+                        <ul>
+                            <li>Дальневосточный государственный медицинский университет (Хабаровск)</li>
+                            <li>Амурская государственная медицинская академия (Благовещенск)</li>
+                            <li>Медицинские колледжи Хабаровска и Владивостока</li>
+                        </ul>
+                    </div>
+                    <span class="demand high"><i class="fas fa-fire"></i> Высокий спрос</span>
+                </div>
+            </div>
+            
+            <!-- Профессия 2 -->
+            <div class="profession">
+                <div class="profession-image" style="background-image: url('https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                    <div class="profession-number">2</div>
+                </div>
+                <div class="profession-content">
+                    <h2>Педагог (учитель начальных классов, предметник)</h2>
+                    <span class="salary">35 000 - 70 000 ₽</span>
+                    <p>Образовательные учреждения области постоянно испытывают потребность в квалифицированных педагогических кадрах. Наибольший дефицит наблюдается среди учителей математики, английского языка и начальных классов.</p>
+                    <div class="education">
+                        <h3><i class="fas fa-graduation-cap"></i> Где получить образование:</h3>
+                        <ul>
+                            <li>Приамурский государственный университет имени Шолом-Алейхема (Биробиджан)</li>
+                            <li>Дальневосточный государственный гуманитарный университет (Хабаровск)</li>
+                            <li>Биробиджанский педагогический колледж</li>
+                        </ul>
+                    </div>
+                    <span class="demand high"><i class="fas fa-fire"></i> Высокий спрос</span>
+                </div>
+            </div>
+            
+            <!-- Профессия 3 -->
+            <div class="profession">
+                <div class="profession-image" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                    <div class="profession-number">3</div>
+                </div>
+                <div class="profession-content">
+                    <h2>IT-специалист (программист, веб-разработчик)</h2>
+                    <span class="salary">60 000 - 150 000 ₽</span>
+                    <p>Цифровые технологии активно внедряются во все сферы жизни, создавая устойчивый спрос на IT-специалистов как в государственном, так и в коммерческом секторе. Многие компании предлагают возможность удалённой работы.</p>
+                    <div class="education">
+                        <h3><i class="fas fa-graduation-cap"></i> Где получить образование:</h3>
+                        <ul>
+                            <li>Дальневосточный государственный университет путей сообщения (Хабаровск)</li>
+                            <li>Дальневосточный федеральный университет (Владивосток)</li>
+                            <li>Онлайн-курсы (Skillbox, GeekBrains, Яндекс.Практикум)</li>
+                        </ul>
+                    </div>
+                    <span class="demand"><i class="fas fa-chart-line"></i> Растущий спрос</span>
+                </div>
+            </div>
+            
+            <!-- Профессия 4 -->
+            <div class="profession">
+                <div class="profession-image" style="background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                    <div class="profession-number">4</div>
+                </div>
+                <div class="profession-content">
+                    <h2>Специалист сельского хозяйства (агроном)</h2>
+                    <span class="salary">40 000 - 90 000 ₽</span>
+                    <p>ЕАО традиционно является аграрным регионом, поэтому специалисты в области сельского хозяйства всегда востребованы. Особенно ценятся кадры, знакомые с современными агротехнологиями и органическим земледелием.</p>
+                    <div class="education">
+                        <h3><i class="fas fa-graduation-cap"></i> Где получить образование:</h3>
+                        <ul>
+                            <li>Дальневосточный государственный аграрный университет (Благовещенск)</li>
+                            <li>Приморская государственная сельскохозяйственная академия (Уссурийск)</li>
+                            <li>Бурятская государственная сельскохозяйственная академия им. В.Р. Филиппова</li>
+                            <li>Биробиджанский сельскохозяйственный техникум</li>
+                        </ul>
+                    </div>
+                    <span class="demand"><i class="fas fa-leaf"></i> Стабильный спрос</span>
+                </div>
+            </div>
+            
+            <!-- Профессия 5 -->
+            <div class="profession">
+                <div class="profession-image" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                    <div class="profession-number">5</div>
+                </div>
+                <div class="profession-content">
+                    <h2>Строитель (инженер-строитель, прораб)</h2>
+                    <span class="salary">45 000 - 100 000 ₽</span>
+                    <p>Развитие инфраструктуры области требует постоянного притока квалифицированных строительных кадров. Наибольший спрос отмечается на специалистов по дорожному строительству и жилищно-коммунальному хозяйству.</p>
+                    <div class="education">
+                        <h3><i class="fas fa-graduation-cap"></i> Где получить образование:</h3>
+                        <ul>
+                            <li>Тихоокеанский государственный университет (Хабаровск)</li>
+                            <li>Дальневосточный федеральный университет (Владивосток)</li>
+                            <li>Политехнический техникум г. Биробиджан</li>
+                        </ul>
+                    </div>
+                    <span class="demand"><i class="fas fa-chart-line"></i> Растущий спрос</span>
+                </div>
+            </div>
+            
+            <!-- Профессия 6 -->
+            <div class="profession">
+                <div class="profession-image" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                    <div class="profession-number">6</div>
+                </div>
+                <div class="profession-content">
+                    <h2>Специалист по социальной работе</h2>
+                    <span class="salary">30 000 - 60 000 ₽</span>
+                    <p>В области активно развивается социальная сфера, требуются специалисты для работы с различными категориями населения. Особенно востребованы психологи и социальные работники.</p>
+                    <div class="education">
+                        <h3><i class="fas fa-graduation-cap"></i> Где получить образование:</h3>
+                        <ul>
+                            <li>Приамурский государственный университет имени Шолом-Алейхема (Биробиджан)</li>
+                            <li>Дальневосточный государственный гуманитарный университет (Хабаровск)</li>
+                            <li>Хабаровский государственный медицинский колледж</li>
+                        </ul>
+                    </div>
+                    <span class="demand"><i class="fas fa-hands-helping"></i> Стабильный спрос</span>
+                </div>
+            </div>
+            
+            <!-- Профессия 7 -->
+            <div class="profession">
+                <div class="profession-image" style="background-image: url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                    <div class="profession-number">7</div>
+                </div>
+                <div class="profession-content">
+                    <h2>Логист (специалист по грузоперевозкам)</h2>
+                    <span class="salary">45 000 - 90 000 ₽</span>
+                    <p>Благодаря выгодному географическому положению ЕАО, логистические компании активно развиваются в регионе. Требуются специалисты по организации перевозок и таможенному оформлению.</p>
+                    <div class="education">
+                        <h3><i class="fas fa-graduation-cap"></i> Где получить образование:</h3>
+                        <ul>
+                            <li>Дальневосточный государственный университет путей сообщения (Хабаровск)</li>
+                            <li>Российская таможенная академия (Владивосток)</li>
+                            <li>Биробиджанский колледж культуры и искусств (курсы логистики)</li>
+                        </ul>
+                    </div>
+                    <span class="demand"><i class="fas fa-truck"></i> Растущий спрос</span>
+                </div>
+            </div>
+            
+            <!-- Профессия 8 -->
+            <div class="profession">
+                <div class="profession-image" style="background-image: url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                    <div class="profession-number">8</div>
+                </div>
+                <div class="profession-content">
+                    <h2>Эколог (инженер-эколог)</h2>
+                    <span class="salary">40 000 - 80 000 ₽</span>
+                    <p>С усилением экологического контроля в регионе растёт спрос на специалистов в области экологии. Особенно востребованы экологи на промышленных предприятиях.</p>
+                    <div class="education">
+                        <h3><i class="fas fa-graduation-cap"></i> Где получить образование:</h3>
+                        <ul>
+                            <li>Дальневосточный федеральный университет (Владивосток)</li>
+                            <li>Тихоокеанский государственный университет (Хабаровск)</li>
+                            <li>Приамурский государственный университет (Биробиджан)</li>
+                        </ul>
+                    </div>
+                    <span class="demand"><i class="fas fa-leaf"></i> Растущий спрос</span>
+                </div>
+            </div>
+            
+            <!-- Профессия 9 -->
+            <div class="profession">
+                <div class="profession-image" style="background-image: url('https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                    <div class="profession-number">9</div>
+                </div>
+                <div class="profession-content">
+                    <h2>Туристический гид (менеджер по туризму)</h2>
+                    <span class="salary">35 000 - 70 000 ₽ + чаевые</span>
+                    <p>С развитием туристического потенциала ЕАО (особенно еврейского культурного наследия) растёт спрос на профессиональных гидов и организаторов туров.</p>
+                    <div class="education">
+                        <h3><i class="fas fa-graduation-cap"></i> Где получить образование:</h3>
+                        <ul>
+                            <li>Дальневосточный федеральный университет (Владивосток)</li>
+                            <li>Хабаровский государственный институт культуры</li>
+                            <li>Курсы гидов-экскурсоводов при музеях ЕАО</li>
+                        </ul>
+                    </div>
+                    <span class="demand"><i class="fas fa-map-marked-alt"></i> Сезонный спрос</span>
+                </div>
+            </div>
+            
+            <!-- Профессия 10 -->
+            <div class="profession">
+                <div class="profession-image" style="background-image: url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                    <div class="profession-number">10</div>
+                </div>
+                <div class="profession-content">
+                    <h2>Электроэнергетик (инженер-энергетик)</h2>
+                    <span class="salary">50 000 - 110 000 ₽</span>
+                    <p>С развитием энергетической инфраструктуры региона требуются квалифицированные специалисты в области энергетики и электроснабжения.</p>
+                    <div class="education">
+                        <h3><i class="fas fa-graduation-cap"></i> Где получить образование:</h3>
+                        <ul>
+                            <li>Дальневосточный государственный университет путей сообщения (Хабаровск)</li>
+                            <li>Комсомольский-на-Амуре государственный университет</li>
+                            <li>Биробиджанский промышленно-гуманитарный колледж</li>
+                        </ul>
+                    </div>
+                    <span class="demand"><i class="fas fa-bolt"></i> Стабильный спрос</span>
+                </div>
+            </div>
+            
+            <!-- Профессия 11 -->
+<div class="profession">
+    <div class="profession-image" style="background-image: url('https://images.unsplash.com/photo-1604999333679-b86d54738315?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+        <div class="profession-number">11</div>
+    </div>
+    <div class="profession-content">
+        <h2>Специалист горно-обогатительного комбината (инженер-обогатитель)</h2>
+        <span class="salary">60 000 - 130 000 ₽</span>
+        <p>С развитием Кимкано-Сутарского ГОКа в ЕАО растёт спрос на специалистов в области обогащения полезных ископаемых. Особенно востребованы технологи обогащения, механики и специалисты по обслуживанию оборудования.</p>
+        <div class="education">
+            <h3><i class="fas fa-graduation-cap"></i> Где получить образование:</h3>
+            <ul>
+                <li>Дальневосточный государственный технический университет (Владивосток)</li>
+                <li>Тихоокеанский государственный университет (Хабаровск)</li>
+                <li>Амурский государственный университет (Благовещенск)</li>
+                <li>Биробиджанский промышленно-гуманитарный колледж (горные специальности)</li>
+            </ul>
+        </div>
+        <span class="demand high"><i class="fas fa-mountain"></i> Высокий спрос</span>
+    </div>
+</div>
+
+<!-- Профессия 12 -->
+<div class="profession">
+    <div class="profession-image" style="background-image: url('https://images.unsplash.com/photo-1568219656418-15c329312bf1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+        <div class="profession-number">12</div>
+    </div>
+    <div class="profession-content">
+        <h2>Электромонтёр высоковольтных линий</h2>
+        <span class="salary">55 000 - 120 000 ₽</span>
+        <p>С развитием энергетической инфраструктуры ЕАО и строительством новых подстанций растёт потребность в квалифицированных электромонтёрах. Особенно ценятся специалисты с допусками к работе на высоковольтных линиях электропередачи.</p>
+        <div class="education">
+            <h3><i class="fas fa-graduation-cap"></i> Где получить образование:</h3>
+            <ul>
+                <li>Хабаровский промышленно-экономический техникум</li>
+                <li>Биробиджанский промышленно-гуманитарный колледж</li>
+                <li>Колледж технологий и сервиса(Комсомольск-на-Амуре)</li>
+                <li>Курсы повышения квалификации при "Дальневосточной распределительной сетевой компании"</li>
+            </ul>
+        </div>
+        <span class="demand high"><i class="fas fa-bolt"></i> Высокий спрос</span>
+    </div>
+</div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <h2></h2>
+            <p></p>
+            
+            
+            </div>
+            
+            <p class="copyright">Актуальные данные о профессиях и учебных заведениях.</p>
+        </div>
+    </footer>
+</body>
+</html>
